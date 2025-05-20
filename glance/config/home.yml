@@ -27,15 +27,6 @@
       widgets:
         - type: docker-containers
 
-        - type: group
-          widgets:
-            - type: reddit
-              subreddit: technology
-              show-thumbnails: true
-            - type: reddit
-              subreddit: selfhosted
-              show-thumbnails: true
-
     - size: small
       widgets:
         - type: weather
