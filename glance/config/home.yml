@@ -50,6 +50,12 @@
             - title: Budgetron
               url: https://budgetron.${DOMAIN}
               icon: /assets/budgetron.svg
+            - title: Traefik
+              url: https://traefik.${DOMAIN}
+              icon: /assets/traefik.svg
+            - title: Ollama
+              url: https://ollama.${DOMAIN}
+              icon: /assets/ollama.svg
 
         - type: markets
           markets:
