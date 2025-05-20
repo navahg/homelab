@@ -5,8 +5,6 @@ services:
     container_name: traefik
     security_opt:
       - no-new-privileges:true
-    networks:
-      - traefik
     ports:
       - "80:80" # HTTP port
       - "443:443" # HTTPS port
@@ -31,6 +29,3 @@ services:
       - glance.icon=/assets/traefik.svg
       - glance.description=Traefik is a modern reverse proxy and load balancer.
       - glance.category=Proxy
-networks:
-  traefik:
-    external: true

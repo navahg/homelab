@@ -4,16 +4,14 @@ Budgetron is a budgeting app that helps you manage your expenses and track your 
 
 ## Prerequisites
 
-- Traefik
-  - This requires a traefik container running on a network named `traefik`
 - PostgreSQL
-  - This requires a postgresql database server reachable from the `traefik` network
+  - This requires a postgresql database server reachable from the docker network
   - Currently, this requires the a database with all the required schemas
     - TODO: Add a script to create the required schemas
 - Google Sign In
   - This requires a google sign in client ID and secret
 - Ollama
-  - This requires an ollama server reachable from the `traefik` network
+  - This requires an ollama server reachable from the docker network
 - Blob Storage
   - This uses Vercel Blob Storage and need API key with read and write permissions
 - Email Provider

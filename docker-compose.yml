@@ -1,4 +1,6 @@
 # Master docker-compose file that starts all the containers
+name: homelab
+
 include:
   - ./traefik/docker-compose.yml
   - ./glance/docker-compose.yml

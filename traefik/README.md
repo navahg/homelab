@@ -15,12 +15,6 @@ touch configs/acme.json
 chmod 600 configs/acme.json
 ```
 
-Create a docker network named `traefik`. This network will be used by all the containers that need to be proxied by traefik.
-
-```bash
-docker network create traefik
-```
-
 When ready, you can start the traefik container.
 
 ```bash
