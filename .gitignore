@@ -1,0 +1,5 @@
+# Ignore environment file
+.env
+
+# Ignore PRIVATE files like CA certificates
+acme.json

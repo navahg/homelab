@@ -1,0 +1,37 @@
+services:
+  budgetron:
+    restart: unless-stopped
+    image: raghavanr/budgetron:latest
+    container_name: budgetron-app
+    build:
+      context: .
+      args:
+        - PORT=${PORT}
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    networks:
+      - internal
+      - traefik
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.budgetron.rule=Host(`budgetron.${DOMAIN}`)
+      - traefik.http.routers.budgetron.entrypoints=https
+      - traefik.http.routers.budgetron.tls=true
+      - traefik.http.services.budgetron.loadbalancer.server.port=${PORT}
+      - com.centurylinklabs.watchtower.enable=true
+      - glance.hide=false
+      - glance.name=Budgetron
+      - glance.icon=/assets/budgetron.svg
+      - glance.description=Budgetron is a budgeting app that helps you manage your expenses and track your income.
+      - glance.category=Application
+
+networks:
+  internal:
+    internal: true
+  traefik:
+    external: true

@@ -1,0 +1,74 @@
+- name: Home
+  hide-desktop-navigation: true
+  columns:
+    - size: small
+      widgets:
+        - type: server-stats
+          servers:
+            - type: local
+              name: Omen
+              hide-mountpoints-by-default: true
+              mountpoints:
+                "/":
+                  hide: false
+
+        - type: clock
+          hour-format: 12h
+          timezones:
+            - timezone: America/New_York
+              label: Home
+            - timezone: Asia/Kolkata
+              label: India
+
+        - type: calendar
+          first-day-of-week: sunday
+
+    - size: full
+      widgets:
+        - type: docker-containers
+
+        - type: group
+          widgets:
+            - type: reddit
+              subreddit: technology
+              show-thumbnails: true
+            - type: reddit
+              subreddit: selfhosted
+              show-thumbnails: true
+
+    - size: small
+      widgets:
+        - type: weather
+          location: Woburn, Massachusetts, United States
+          units: imperial
+          hour-format: 12h
+
+        - type: monitor
+          cache: 1m
+          title: Services
+          sites:
+            - title: Budgetron
+              url: https://budgetron.${DOMAIN}
+              icon: /assets/budgetron.svg
+
+        - type: markets
+          markets:
+            - symbol: SPY
+              name: S&P 500
+            - symbol: ORCL
+              name: Oracle
+            - symbol: NVDA
+              name: NVIDIA
+            - symbol: AAPL
+              name: Apple
+            - symbol: GOOG
+              name: Google
+            - symbol: MSFT
+              name: Microsoft
+            - symbol: AMZN
+              name: Amazon
+            - symbol: META
+              name: Meta
+            - symbol: TSLA
+              name: Tesla
+

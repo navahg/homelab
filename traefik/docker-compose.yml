@@ -1,0 +1,36 @@
+services:
+  traefik:
+    restart: unless-stopped
+    image: traefik:latest
+    container_name: traefik
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik
+    ports:
+      - "80:80" # HTTP port
+      - "443:443" # HTTPS port
+      - "8080:8080" # Traefik dashboard
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
+    volumes:
+      - "./configs/acme.json:/etc/traefik/acme.json"
+      - "./configs/traefik.yml:/etc/traefik/traefik.yml:ro"
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.entrypoints=https
+      - traefik.http.routers.traefik.rule=Host(`traefik.${DOMAIN}`)
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=cloudflare
+      - traefik.http.routers.traefik.tls.domains[0].main=${DOMAIN}
+      - traefik.http.routers.traefik.tls.domains[0].sans=*.${DOMAIN}
+      - traefik.http.routers.traefik.service=api@internal
+      - glance.hide=false
+      - glance.name=Traefik
+      - glance.icon=/assets/traefik.svg
+      - glance.description=Traefik is a modern reverse proxy and load balancer.
+      - glance.category=Proxy
+networks:
+  traefik:
+    external: true

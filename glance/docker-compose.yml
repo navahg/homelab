@@ -1,0 +1,24 @@
+services:
+  glance:
+    restart: unless-stopped
+    image: glanceapp/glance:latest
+    container_name: glance
+    volumes:
+      - ./config:/app/config
+      - ./assets:/app/assets
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env_file: .env
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik
+      - traefik.http.routers.glance.rule=Host(`home.${DOMAIN}`)
+      - traefik.http.routers.glance.entrypoints=https
+      - traefik.http.routers.glance.tls=true
+      - traefik.http.services.glance.loadbalancer.server.port=8080
+
+networks:
+  traefik:
+    external: true
+  
