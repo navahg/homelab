@@ -1,8 +1,8 @@
 services:
   glance:
-    restart: unless-stopped
     image: glanceapp/glance:latest
     container_name: glance
+    restart: unless-stopped
     volumes:
       - ./config:/app/config
       - ./assets:/app/assets

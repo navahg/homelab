@@ -2,7 +2,9 @@
 name: homelab
 
 include:
-  - ./traefik/docker-compose.yml
-  - ./glance/docker-compose.yml
   - ./budgetron/docker-compose.yml
+  - ./glance/docker-compose.yml
+  - ./jellyfin/docker-compose.yml
+  - ./portainer/docker-compose.yml
+  - ./traefik/docker-compose.yml
   - ./watchtower/docker-compose.yml

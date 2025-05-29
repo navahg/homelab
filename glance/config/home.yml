@@ -41,12 +41,19 @@
             - title: Budgetron
               url: https://budgetron.${DOMAIN}
               icon: /assets/budgetron.svg
-            - title: Traefik
-              url: https://traefik.${DOMAIN}
-              icon: /assets/traefik.svg
+            - title: Jellyfin
+              url: https://jellyfin.${DOMAIN}
+              icon: /assets/jellyfin.svg
             - title: Ollama
               url: https://ollama.${DOMAIN}
               icon: /assets/ollama.svg
+            - title: Portainer
+              url: https://portainer.${DOMAIN}
+              icon: /assets/portainer.svg
+            - title: Traefik
+              url: https://traefik.${DOMAIN}
+              icon: /assets/traefik.svg
+            
 
         - type: markets
           markets:

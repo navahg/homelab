@@ -1,0 +1,5 @@
+# Ignore Jellyfin runtime data
+config/
+cache/
+media/
+fonts/

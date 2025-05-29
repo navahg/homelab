@@ -1,8 +1,8 @@
 services:
   budgetron:
-    restart: unless-stopped
     image: raghavanr/budgetron:latest
     container_name: budgetron
+    restart: unless-stopped
     build:
       context: .
       args:

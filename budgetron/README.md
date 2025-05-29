@@ -25,7 +25,7 @@ Create a `.env` file from the `.env.example` file and update the values.
 cp .env.example .env
 ```
 
-Then, build and start the container.
+Then, start the container.
 
 ```bash
 docker compose up -d
