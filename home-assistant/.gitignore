@@ -5,6 +5,7 @@ config/secrets.yaml
 config/.cloud/
 config/.storage/
 config/deps/
+config/nest/
 config/tts/
 config/.HA_VERSION
 config/*.db

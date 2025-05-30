@@ -25,15 +25,6 @@
 
     - size: full
       widgets:
-        - type: docker-containers
-
-    - size: small
-      widgets:
-        - type: weather
-          location: Woburn, Massachusetts, United States
-          units: imperial
-          hour-format: 12h
-
         - type: monitor
           cache: 1m
           title: Services
@@ -56,7 +47,15 @@
             - title: Traefik
               url: https://traefik.${DOMAIN}
               icon: /assets/traefik.svg
-            
+
+    - size: small
+      widgets:
+        - type: weather
+          location: Woburn, Massachusetts, United States
+          units: imperial
+          hour-format: 12h
+
+        - type: docker-containers
 
         - type: markets
           markets:

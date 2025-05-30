@@ -1,0 +1,18 @@
+services:
+  matter-server:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    container_name: matter-server
+    restart: unless-stopped
+    user: 1000:1000
+    network_mode: host
+    security_opt:
+      - apparmor:unconfined # Needed for Bluetooth via dbus
+    volumes:
+      - ./data:/data/
+      - /run/dbus:/run/dbus:ro
+    labels:
+      - glance.hide=false
+      - glance.name=Matter Server
+      - glance.icon=/assets/matter.svg
+      - glance.description=Python server to interact with Matter.
+      - glance.category=System
