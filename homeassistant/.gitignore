@@ -1,0 +1,13 @@
+# Ignore Home Assistant config files that contain sensitive data
+config/secrets.yaml
+
+# Ignore Home Assistant config files that contain dynamic data
+config/.cloud/
+config/.storage/
+config/deps/
+config/tts/
+config/.HA_VERSION
+config/*.db
+config/*.log
+config/home-assistant_v2.db*
+config/home-assistant.log*

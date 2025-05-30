@@ -12,7 +12,7 @@ services:
     environment:
       - NODE_ENV=production
     extra_hosts:
-      - 'host.docker.internal:host-gateway'
+      - host.docker.internal:host-gateway
     labels:
       - traefik.enable=true
       - traefik.http.routers.budgetron.rule=Host(`budgetron.${DOMAIN}`)

@@ -41,6 +41,9 @@
             - title: Budgetron
               url: https://budgetron.${DOMAIN}
               icon: /assets/budgetron.svg
+            - title: Home Assistant
+              url: https://home.${DOMAIN}
+              icon: /assets/home-assistant.svg
             - title: Jellyfin
               url: https://jellyfin.${DOMAIN}
               icon: /assets/jellyfin.svg

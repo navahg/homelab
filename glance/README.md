@@ -15,3 +15,5 @@ docker compose up -d
 ```bash
 docker compose up -d
 ```
+
+Finally, you can access the glance app at `https://${DOMAIN}`

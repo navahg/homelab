@@ -1,0 +1,23 @@
+services:
+  homeassistant:
+    image: "ghcr.io/home-assistant/home-assistant:latest"
+    container_name: homeassistant
+    restart: unless-stopped
+    user: 1000:1000
+    volumes:
+      - ./config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+    privileged: true
+    network_mode: host
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.homeassistant.rule=Host(`home.${DOMAIN}`)
+      - traefik.http.routers.homeassistant.entrypoints=https
+      - traefik.http.routers.homeassistant.tls=true
+      - traefik.http.services.homeassistant.loadbalancer.server.url=http://host.docker.internal:8123
+      - glance.hide=false
+      - glance.name=Home Assistant
+      - glance.icon=/assets/home-assistant.svg
+      - glance.description=Home Assistant is a home automation platform.
+      - glance.category=System
