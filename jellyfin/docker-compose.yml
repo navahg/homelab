@@ -7,7 +7,7 @@ services:
     volumes:
       - ./config:/config
       - ./cache:/cache
-      - ./media:/media:ro
+      - ${MEDIA_DIR}:/media:ro
       - ./fonts:/usr/local/share/fonts/custom:ro
     runtime: nvidia
     gpus: all
