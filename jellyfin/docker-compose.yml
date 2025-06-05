@@ -15,13 +15,19 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
+      # Proxy setup
       - traefik.enable=true
       - traefik.http.routers.jellyfin.rule=Host(`jellyfin.${DOMAIN}`)
       - traefik.http.routers.jellyfin.entrypoints=https
       - traefik.http.routers.jellyfin.tls=true
       - traefik.http.services.jellyfin.loadbalancer.server.port=8096
+      
+      # Glance widget setup
       - glance.hide=false
       - glance.name=Jellyfin
       - glance.icon=/assets/jellyfin.svg
       - glance.description=Jellyfin is a free, open source media server.
       - glance.category=Application
+      
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true

@@ -9,9 +9,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     env_file: .env
     labels:
+      # Proxy setup
       - traefik.enable=true
       - traefik.http.routers.glance.rule=Host(`${DOMAIN}`)
       - traefik.http.routers.glance.entrypoints=https
       - traefik.http.routers.glance.tls=true
       - traefik.http.services.glance.loadbalancer.server.port=8080
-  
+
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true

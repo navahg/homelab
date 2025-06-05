@@ -39,3 +39,6 @@ services:
       - glance.icon=/assets/traefik.svg
       - glance.description=Traefik is a modern reverse proxy and load balancer.
       - glance.category=Proxy
+      
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true

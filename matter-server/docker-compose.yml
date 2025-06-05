@@ -11,8 +11,12 @@ services:
       - ./data:/data/
       - /run/dbus:/run/dbus:ro
     labels:
+      # Glance widget setup
       - glance.hide=false
       - glance.name=Matter Server
       - glance.icon=/assets/matter.svg
       - glance.description=Python server to interact with Matter.
       - glance.category=System
+
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true

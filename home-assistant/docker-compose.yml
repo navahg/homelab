@@ -11,13 +11,19 @@ services:
     privileged: true
     network_mode: host
     labels:
+      # Proxy setup
       - traefik.enable=true
       - traefik.http.routers.homeassistant.rule=Host(`home.${DOMAIN}`)
       - traefik.http.routers.homeassistant.entrypoints=https
       - traefik.http.routers.homeassistant.tls=true
       - traefik.http.services.homeassistant.loadbalancer.server.url=http://host.docker.internal:8123
+
+      # Glance widget setup
       - glance.hide=false
       - glance.name=Home Assistant
       - glance.icon=/assets/home-assistant.svg
       - glance.description=Home Assistant is a home automation platform.
       - glance.category=System
+
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true

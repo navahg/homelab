@@ -1,22 +1,28 @@
 services:
   portainer:
-    image: portainer/portainer-ce:latest
+    image: portainer/portainer-ee:latest
     container_name: portainer
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
     labels:
+      # Proxy setup
       - traefik.enable=true
       - traefik.http.routers.portainer.rule=Host(`portainer.${DOMAIN}`)
       - traefik.http.routers.portainer.entrypoints=https
       - traefik.http.routers.portainer.tls=true
       - traefik.http.services.portainer.loadbalancer.server.port=9000
+
+      # Glance widget setup
       - glance.hide=false
       - glance.name=Portainer
       - glance.icon=/assets/portainer.svg
       - glance.description=Portainer is a container management platform.
       - glance.category=System
+
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true
 
 volumes:
   portainer_data:

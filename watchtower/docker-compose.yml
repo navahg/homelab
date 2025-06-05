@@ -10,6 +10,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
+      # Glance widget setup
       - glance.hide=false
       - glance.name=Watchtower
       - glance.icon=/assets/watchtower.svg
