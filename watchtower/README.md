@@ -5,6 +5,12 @@ And this only updates containers that have the `com.centurylinklabs.watchtower.e
 
 ## Setup
 
+Create a `.env` file from the `.env.example` file and update the values.
+
+```bash
+cp .env.example .env
+```
+
 When ready, you can start the watchtower container.
 
 ```bash
