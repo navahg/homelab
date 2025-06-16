@@ -41,6 +41,9 @@
             - title: Ollama
               url: https://ollama.${DOMAIN}
               icon: /assets/ollama.svg
+            - title: PGBackWeb
+              url: https://pgbackweb.${DOMAIN}
+              icon: /assets/pgbackweb.svg
             - title: Portainer
               url: https://portainer.${DOMAIN}
               icon: /assets/portainer.svg

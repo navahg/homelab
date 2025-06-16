@@ -1,0 +1,47 @@
+services:
+  pgbackweb:
+    image: eduardolat/pgbackweb:latest
+    container_name: pgbackweb
+    restart: unless-stopped
+    volumes:
+      - ./backups:/backups
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      PBW_ENCRYPTION_KEY: ${PBW_ENCRYPTION_KEY}
+      PBW_POSTGRES_CONN_STRING: "postgresql://${PBW_DB_USER}:${PBW_DB_PASSWORD}@pgbackweb_postgres:5432/${PBW_DB_NAME}?sslmode=disable"
+      TZ: ${PBW_TIMEZONE}
+    depends_on:
+      pgbackweb_postgres:
+        condition: service_healthy
+    labels:
+      # Proxy setup
+      - traefik.enable=true
+      - traefik.http.routers.pgbackweb.rule=Host(`pgbackweb.${DOMAIN}`)
+      - traefik.http.routers.pgbackweb.entrypoints=https
+      - traefik.http.routers.pgbackweb.tls=true
+      - traefik.http.services.pgbackweb.loadbalancer.server.port=8085
+
+      # Glance widget setup
+      - glance.hide=false
+      - glance.name=PGBackWeb
+      - glance.icon=/assets/pgbackweb.svg
+      - glance.description=PGBackWeb is a web interface for PostgreSQL backups.
+      - glance.category=System
+
+      
+  pgbackweb_postgres:
+    image: postgres:17
+    container_name: pgbackweb_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PBW_DB_USER}
+      POSTGRES_DB: ${PBW_DB_NAME}
+      POSTGRES_PASSWORD: ${PBW_DB_PASSWORD}
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
