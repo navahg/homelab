@@ -8,6 +8,7 @@ include:
   - ./home-assistant/docker-compose.yml
   - ./jellyfin/docker-compose.yml
   - ./matter-server/docker-compose.yml
+  - ./open-webui/docker-compose.yml
   - ./pgbackweb/docker-compose.yml
   - ./portainer/docker-compose.yml
   - ./traefik/docker-compose.yml

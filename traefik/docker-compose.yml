@@ -6,16 +6,18 @@ services:
     security_opt:
       - no-new-privileges:true
     ports:
-      - "80:80" # HTTP port
-      - "443:443" # HTTPS port
-      - "8080:8080" # Traefik dashboard
+      - 80:80 # HTTP port
+      - 443:443 # HTTPS port
+      - 8080:8080 # Traefik dashboard
     volumes:
-      - "./configs/acme.json:/etc/traefik/acme.json"
-      - "./configs/traefik.yml:/etc/traefik/traefik.yml:ro"
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - ./configs/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./configs/conf/:/etc/traefik/conf/
+      - ./configs/certs/:/etc/traefik/certs/
     extra_hosts:
       - host.docker.internal:host-gateway
-    env_file: .env
+    environment:
+      - CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}
     labels:
       # Proxy setup to Traefik Dashboard & Certificate setup
       - traefik.enable=true
@@ -39,6 +41,6 @@ services:
       - glance.icon=/assets/traefik.svg
       - glance.description=Traefik is a modern reverse proxy and load balancer.
       - glance.category=Proxy
-      
+
       # Auto update
       - com.centurylinklabs.watchtower.enable=true

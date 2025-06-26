@@ -7,7 +7,8 @@ services:
       - ./config:/app/config
       - ./assets:/app/assets
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    env_file: .env
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
     labels:
       # Proxy setup
       - traefik.enable=true
