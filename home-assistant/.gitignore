@@ -12,3 +12,6 @@ config/*.db
 config/*.log
 config/home-assistant_v2.db*
 config/home-assistant.log*
+
+# Ignore Home Assistant config files that contain custom components
+config/custom_components

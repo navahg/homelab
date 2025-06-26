@@ -13,9 +13,19 @@ services:
     labels:
       # Proxy setup
       - traefik.enable=true
+      # Auth proxy setup
+      - traefik.http.routers.homeassistant-auth.rule=Host(`home.${DOMAIN}`) && PathPrefix(`/auth`)
+      - traefik.http.routers.homeassistant-auth.entrypoints=https
+      - traefik.http.routers.homeassistant-auth.tls=true
+      - traefik.http.routers.homeassistant-auth.service=homeassistant
+      - traefik.http.routers.homeassistant-auth.middlewares=home-assistant-authentik@docker
+
+      # Home Assistant proxy setup
       - traefik.http.routers.homeassistant.rule=Host(`home.${DOMAIN}`)
       - traefik.http.routers.homeassistant.entrypoints=https
       - traefik.http.routers.homeassistant.tls=true
+      - traefik.http.routers.homeassistant.service=homeassistant
+      # Home Assistant service setup
       - traefik.http.services.homeassistant.loadbalancer.server.url=http://host.docker.internal:8123
 
       # Glance widget setup
@@ -27,3 +37,27 @@ services:
 
       # Auto update
       - com.centurylinklabs.watchtower.enable=true
+
+  authentik-proxy:
+    image: ghcr.io/goauthentik/proxy:2025.6.2
+    container_name: home-assistant-authentik-outpost
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    environment:
+      AUTHENTIK_HOST: ${AUTHENTIK_HOST}
+      AUTHENTIK_INSECURE: ${AUTHENTIK_INSECURE}
+      AUTHENTIK_TOKEN: ${AUTHENTIK_TOKEN}
+      AUTHENTIK_HOST_BROWSER: ${AUTHENTIK_HOST_BROWSER}
+    labels:
+      # Proxy setup
+      - traefik.enable=true
+      - traefik.http.routers.home-assistant-authentik-outpost.rule=HostRegexp(`home.${DOMAIN}`) && PathPrefix(`/outpost.goauthentik.io/`)
+      - traefik.http.routers.home-assistant-authentik-outpost.entrypoints=https
+      - traefik.http.routers.home-assistant-authentik-outpost.tls=true
+      - traefik.http.services.home-assistant-authentik-outpost.loadbalancer.server.port=9000
+      
+      # Middleware setup
+      - traefik.http.middlewares.home-assistant-authentik.forwardauth.address=http://authentik-proxy:9000/outpost.goauthentik.io/auth/traefik # `authentik-proxy` refers to the service name in the compose file.
+      - traefik.http.middlewares.home-assistant-authentik.forwardauth.trustForwardHeader=true
+      - traefik.http.middlewares.home-assistant-authentik.forwardauth.authResponseHeaders=X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid,X-authentik-jwt,X-authentik-meta-jwks,X-authentik-meta-outpost,X-authentik-meta-provider,X-authentik-meta-app,X-authentik-meta-version

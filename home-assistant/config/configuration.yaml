@@ -15,3 +15,7 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.16.0.0/12 # Docker network
+
+# Configuration for Authentik (support provided by HACS)
+auth_header:
+  username_header: X-authentik-username

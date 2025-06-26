@@ -18,6 +18,11 @@ docker compose up -d
 
 Finally, you can access the home assistant app at `https://home.${DOMAIN}`
 
+### Enabling Authentik
+
+After setting up the home assistant, follow this guide to download the HACS custom component and enable it.
+https://integrations.goauthentik.io/integrations/services/home-assistant/#home-assistant-configuration
+
 ## Troubleshooting
 
 1. If you are unable to access the home assistant app, try the following:
