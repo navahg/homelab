@@ -8,6 +8,7 @@ services:
       - ./assets:/app/assets
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
+      - DOMAIN=${DOMAIN}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
     labels:
       # Proxy setup
