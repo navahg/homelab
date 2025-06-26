@@ -2,6 +2,7 @@
 name: homelab
 
 include:
+  - ./authentik/docker-compose.yml
   - ./budgetron/docker-compose.yml
   - ./glance/docker-compose.yml
   - ./home-assistant/docker-compose.yml

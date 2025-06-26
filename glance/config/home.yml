@@ -29,6 +29,9 @@
           cache: 1m
           title: Services
           sites:
+            - title: Authentik
+              url: https://auth.${DOMAIN}
+              icon: /assets/authentik.svg
             - title: Budgetron
               url: https://budgetron.${DOMAIN}
               icon: /assets/budgetron.svg
