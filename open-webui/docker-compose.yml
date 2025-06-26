@@ -1,0 +1,37 @@
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    restart: unless-stopped
+    environment:
+      - ENABLE_OAUTH_SIGNUP=true
+      - OAUTH_MERGE_ACCOUNTS_BY_EMAIL=true
+      - OAUTH_SCOPES=openid email profile
+      - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
+      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+      - OAUTH_PROVIDER_NAME=${OAUTH_PROVIDER_NAME}
+      - OPENID_PROVIDER_URL=${OPENID_PROVIDER_URL}
+      - OPENID_REDIRECT_URI=${OPENID_REDIRECT_URI}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+    volumes:
+      - open-webui-data:/app/backend/data
+    labels:
+      # Proxy setup
+      - traefik.enable=true
+      - traefik.http.routers.open-webui.rule=Host(`ai.${DOMAIN}`)
+      - traefik.http.routers.open-webui.entrypoints=https
+      - traefik.http.routers.open-webui.tls=true
+      - traefik.http.services.open-webui.loadbalancer.server.port=8080
+
+      # Glance widget setup
+      - glance.hide=false
+      - glance.name=Open WebUI
+      - glance.icon=/assets/open-webui.svg
+      - glance.description=Open WebUI is a web interface for OpenAI's API.
+      - glance.category=AI
+
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true
+
+volumes:
+  open-webui-data:

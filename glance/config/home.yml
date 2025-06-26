@@ -44,6 +44,9 @@
             - title: Ollama
               url: https://ollama.${DOMAIN}
               icon: /assets/ollama.svg
+            - title: Open WebUI
+              url: https://ai.${DOMAIN}
+              icon: /assets/open-webui.svg
             - title: PGBackWeb
               url: https://pgbackweb.${DOMAIN}
               icon: /assets/pgbackweb.svg
