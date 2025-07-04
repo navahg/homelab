@@ -1,16 +1,26 @@
 services:
   budgetron:
-    image: raghavanr/budgetron:latest
+    image: ghcr.io/budgetron-org/budgetron:0.1.0
     container_name: budgetron
     restart: unless-stopped
-    build:
-      context: .
-      args:
-        - PORT=${PORT}
-    env_file:
-      - .env
     environment:
       - NODE_ENV=production
+      - AUTH_SECRET=${AUTH_SECRET}
+      - AUTH_URL=${AUTH_URL}
+      - DB_URL=${DB_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
+      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+      - OAUTH_PROVIDER_NAME=${OAUTH_PROVIDER_NAME}
+      - OPENID_CONFIGURATION_URL=${OPENID_CONFIGURATION_URL}
+      - OPENAI_COMPATIBLE_PROVIDER=${OPENAI_COMPATIBLE_PROVIDER}
+      - OPENAI_COMPATIBLE_BASE_URL=${OPENAI_COMPATIBLE_BASE_URL}
+      - OPENAI_COMPATIBLE_API_KEY=${OPENAI_COMPATIBLE_API_KEY}
+      - OPENAI_COMPATIBLE_MODEL=${OPENAI_COMPATIBLE_MODEL}
+      - EMAIL_PROVIDER_API_KEY=${EMAIL_PROVIDER_API_KEY}
+      - EMAIL_PROVIDER_FROM_EMAIL=${EMAIL_PROVIDER_FROM_EMAIL}
+      - BLOB_READ_WRITE_TOKEN=${BLOB_READ_WRITE_TOKEN}
     extra_hosts:
       - host.docker.internal:host-gateway
     labels:
@@ -19,7 +29,7 @@ services:
       - traefik.http.routers.budgetron.rule=Host(`budgetron.${DOMAIN}`)
       - traefik.http.routers.budgetron.entrypoints=https
       - traefik.http.routers.budgetron.tls=true
-      - traefik.http.services.budgetron.loadbalancer.server.port=${PORT}
+      - traefik.http.services.budgetron.loadbalancer.server.port=3000
 
       # Glance widget setup
       - glance.hide=false
