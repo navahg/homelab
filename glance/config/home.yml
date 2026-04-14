@@ -35,6 +35,9 @@
             - title: Budgetron
               url: https://budgetron.${DOMAIN}
               icon: /assets/budgetron.svg
+            - title: Drizzle Gateway
+              url: https://drizzle-gateway.${DOMAIN}
+              icon: /assets/drizzle-gateway.svg
             - title: Home Assistant
               url: https://home.${DOMAIN}
               icon: /assets/home-assistant.svg

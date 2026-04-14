@@ -1,0 +1,32 @@
+services:
+  drizzle-gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    container_name: drizzle-gateway
+    restart: unless-stopped
+    environment:
+      - MASTERPASS=${MASTERPASS}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - drizzle-gateway-data:/app
+    labels:
+      # Proxy setup
+      - traefik.enable=true
+      - traefik.http.routers.drizzle-gateway.rule=Host(`drizzle-gateway.${DOMAIN}`)
+      - traefik.http.routers.drizzle-gateway.entrypoints=https
+      - traefik.http.routers.drizzle-gateway.tls=true
+      - traefik.http.services.drizzle-gateway.loadbalancer.server.port=4983
+      
+      # Glance widget setup
+      - glance.hide=false
+      - glance.name=Drizzle Gateway
+      - glance.icon=/assets/drizzle-gateway.svg
+      - glance.description=Drizzle Gateway is an open-source self-hosted Drizzle Studio to manage your databases.
+      - glance.category=Application
+      
+      # Auto update
+      - com.centurylinklabs.watchtower.enable=true
+
+volumes:
+  drizzle-gateway-data:
+    
